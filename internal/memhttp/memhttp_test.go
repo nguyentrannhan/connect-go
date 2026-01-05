@@ -24,9 +24,9 @@ import (
 	"testing"
 	"time"
 
-	"connectrpc.com/connect/internal/assert"
-	"connectrpc.com/connect/internal/memhttp"
-	"connectrpc.com/connect/internal/memhttp/memhttptest"
+	"github.com/nguyentrannhan/connect-go/internal/assert"
+	"github.com/nguyentrannhan/connect-go/internal/memhttp"
+	"github.com/nguyentrannhan/connect-go/internal/memhttp/memhttptest"
 )
 
 func TestServerTransport(t *testing.T) {

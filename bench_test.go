@@ -25,10 +25,10 @@ import (
 	"strings"
 	"testing"
 
-	connect "connectrpc.com/connect"
-	"connectrpc.com/connect/internal/assert"
-	pingv1 "connectrpc.com/connect/internal/gen/connect/ping/v1"
-	"connectrpc.com/connect/internal/gen/simple/connect/ping/v1/pingv1connect"
+	connect "github.com/nguyentrannhan/connect-go"
+	"github.com/nguyentrannhan/connect-go/internal/assert"
+	pingv1 "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1"
+	"github.com/nguyentrannhan/connect-go/internal/gen/simple/connect/ping/v1/pingv1connect"
 )
 
 func BenchmarkConnect(b *testing.B) {

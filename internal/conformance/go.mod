@@ -1,4 +1,4 @@
-module connectrpc.com/connect/internal/conformance
+module github.com/nguyentrannhan/connect-go/internal/conformance
 
 go 1.24.0
 
@@ -9,7 +9,7 @@ require (
 	buf.build/go/protovalidate v0.11.0 // indirect
 	buf.build/go/protoyaml v0.6.0 // indirect
 	cel.dev/expr v0.24.0 // indirect
-	connectrpc.com/connect v1.19.1 // indirect
+	github.com/nguyentrannhan/connect-go v1.19.1 // indirect
 	github.com/andybalholm/brotli v1.2.0 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.1 // indirect
@@ -40,4 +40,4 @@ require (
 	nhooyr.io/websocket v1.8.6 // indirect
 )
 
-replace connectrpc.com/connect => ../../
+replace github.com/nguyentrannhan/connect-go => ../../

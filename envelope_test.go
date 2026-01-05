@@ -19,7 +19,7 @@ import (
 	"io"
 	"testing"
 
-	"connectrpc.com/connect/internal/assert"
+	"github.com/nguyentrannhan/connect-go/internal/assert"
 )
 
 func TestEnvelope(t *testing.T) {

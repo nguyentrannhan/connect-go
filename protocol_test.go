@@ -17,7 +17,7 @@ package connect
 import (
 	"testing"
 
-	"connectrpc.com/connect/internal/assert"
+	"github.com/nguyentrannhan/connect-go/internal/assert"
 )
 
 func TestCanonicalizeContentType(t *testing.T) {

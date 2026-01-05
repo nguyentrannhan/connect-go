@@ -26,8 +26,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"connectrpc.com/connect/internal/assert"
 	"github.com/google/go-cmp/cmp"
+	"github.com/nguyentrannhan/connect-go/internal/assert"
 )
 
 func TestGRPCHandlerSender(t *testing.T) {

@@ -24,12 +24,13 @@
 package pingv1connect
 
 import (
-	connect "connectrpc.com/connect"
-	v1 "connectrpc.com/connect/internal/gen/connect/ping/v1"
 	context "context"
 	errors "errors"
 	http "net/http"
 	strings "strings"
+
+	connect "github.com/nguyentrannhan/connect-go"
+	v1 "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1"
 )
 
 // This is a compile-time assertion to ensure that this generated file and the connect package are

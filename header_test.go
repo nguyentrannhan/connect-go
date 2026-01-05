@@ -20,7 +20,7 @@ import (
 	"testing"
 	"testing/quick"
 
-	"connectrpc.com/connect/internal/assert"
+	"github.com/nguyentrannhan/connect-go/internal/assert"
 )
 
 func TestBinaryEncodingQuick(t *testing.T) {

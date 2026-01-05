@@ -23,13 +23,13 @@ import (
 	"sync/atomic"
 	"testing"
 
-	connect "connectrpc.com/connect"
-	"connectrpc.com/connect/internal/assert"
-	pingv1 "connectrpc.com/connect/internal/gen/connect/ping/v1"
-	"connectrpc.com/connect/internal/gen/generics/connect/ping/v1/pingv1connect"
-	pingv1connectsimple "connectrpc.com/connect/internal/gen/simple/connect/ping/v1/pingv1connect"
-	"connectrpc.com/connect/internal/memhttp"
-	"connectrpc.com/connect/internal/memhttp/memhttptest"
+	connect "github.com/nguyentrannhan/connect-go"
+	"github.com/nguyentrannhan/connect-go/internal/assert"
+	pingv1 "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1"
+	"github.com/nguyentrannhan/connect-go/internal/gen/generics/connect/ping/v1/pingv1connect"
+	pingv1connectsimple "github.com/nguyentrannhan/connect-go/internal/gen/simple/connect/ping/v1/pingv1connect"
+	"github.com/nguyentrannhan/connect-go/internal/memhttp"
+	"github.com/nguyentrannhan/connect-go/internal/memhttp/memhttptest"
 )
 
 const expectedContextErrorMessage = "creating a new context in an interceptor is prohibited"

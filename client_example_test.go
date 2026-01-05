@@ -20,8 +20,8 @@ import (
 	"net/http"
 	"os"
 
-	pingv1 "connectrpc.com/connect/internal/gen/connect/ping/v1"
-	"connectrpc.com/connect/internal/gen/simple/connect/ping/v1/pingv1connect"
+	pingv1 "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1"
+	"github.com/nguyentrannhan/connect-go/internal/gen/simple/connect/ping/v1/pingv1connect"
 )
 
 func Example_client() {

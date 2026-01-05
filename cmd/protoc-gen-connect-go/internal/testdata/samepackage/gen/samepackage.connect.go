@@ -19,11 +19,12 @@
 package gen
 
 import (
-	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
 	http "net/http"
 	strings "strings"
+
+	connect "github.com/nguyentrannhan/connect-go"
 )
 
 // This is a compile-time assertion to ensure that this generated file and the connect package are

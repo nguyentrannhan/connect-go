@@ -27,23 +27,23 @@ import (
 	"strings"
 	"testing"
 
-	"connectrpc.com/connect"
-	"connectrpc.com/connect/internal/assert"
-	pingv1 "connectrpc.com/connect/internal/gen/connect/ping/v1"
 	"github.com/google/go-cmp/cmp"
+	"github.com/nguyentrannhan/connect-go"
+	"github.com/nguyentrannhan/connect-go/internal/assert"
+	pingv1 "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protodesc"
 	"google.golang.org/protobuf/types/descriptorpb"
 	"google.golang.org/protobuf/types/pluginpb"
 
-	defaultpackage "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/defaultpackage/gen"
-	defaultpackageconnect "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/defaultpackage/gen/genconnect"
-	diffpackage "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/diffpackage/gen"
-	diffpackagediff "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/diffpackage/gen/gendiff"
-	noservice "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/noservice/gen"
-	samepackage "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/samepackage/gen"
-	simple "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/simple/gen"
-	_ "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/v1beta1service/gen"
+	defaultpackage "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/defaultpackage/gen"
+	defaultpackageconnect "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/defaultpackage/gen/genconnect"
+	diffpackage "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/diffpackage/gen"
+	diffpackagediff "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/diffpackage/gen/gendiff"
+	noservice "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/noservice/gen"
+	samepackage "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/samepackage/gen"
+	simple "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/simple/gen"
+	_ "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/v1beta1service/gen"
 )
 
 //go:embed internal/testdata
@@ -84,7 +84,7 @@ func TestGenerate(t *testing.T) {
 
 		assert.Equal(t, len(rsp.File), 1)
 		file := rsp.File[0]
-		assert.Equal(t, file.GetName(), "connectrpc.com/connect/internal/gen/connect/ping/v1/pingv1connect/ping.connect.go")
+		assert.Equal(t, file.GetName(), "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1/pingv1connect/ping.connect.go")
 		assert.NotZero(t, file.GetContent())
 	})
 	t.Run("defaultpackage.proto", func(t *testing.T) {
@@ -106,7 +106,7 @@ func TestGenerate(t *testing.T) {
 
 		assert.Equal(t, len(rsp.File), 1)
 		file := rsp.File[0]
-		assert.Equal(t, file.GetName(), "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/defaultpackage/gen/genconnect/defaultpackage.connect.go")
+		assert.Equal(t, file.GetName(), "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/defaultpackage/gen/genconnect/defaultpackage.connect.go")
 		assert.NotZero(t, file.GetContent())
 		testCmpToTestdata(t, file.GetContent(), "internal/testdata/defaultpackage/gen/genconnect/defaultpackage.connect.go")
 	})
@@ -126,7 +126,7 @@ func TestGenerate(t *testing.T) {
 
 		assert.Equal(t, len(rsp.File), 1)
 		file := rsp.File[0]
-		assert.Equal(t, file.GetName(), "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/samepackage/gen/samepackage.connect.go")
+		assert.Equal(t, file.GetName(), "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/samepackage/gen/samepackage.connect.go")
 		assert.NotZero(t, file.GetContent())
 		testCmpToTestdata(t, file.GetContent(), "internal/testdata/samepackage/gen/samepackage.connect.go")
 	})
@@ -146,7 +146,7 @@ func TestGenerate(t *testing.T) {
 
 		assert.Equal(t, len(rsp.File), 1)
 		file := rsp.File[0]
-		assert.Equal(t, file.GetName(), "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/diffpackage/gen/gendiff/diffpackage.connect.go")
+		assert.Equal(t, file.GetName(), "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/diffpackage/gen/gendiff/diffpackage.connect.go")
 		assert.NotZero(t, file.GetContent())
 		testCmpToTestdata(t, file.GetContent(), "internal/testdata/diffpackage/gen/gendiff/diffpackage.connect.go")
 	})
@@ -194,7 +194,7 @@ func TestGenerate(t *testing.T) {
 
 			assert.Equal(t, len(rsp.File), 1)
 			file := rsp.File[0]
-			assert.Equal(t, file.GetName(), "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/simple/gen/genconnect/simple.connect.go")
+			assert.Equal(t, file.GetName(), "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/simple/gen/genconnect/simple.connect.go")
 			assert.NotZero(t, file.GetContent())
 			testCmpToTestdata(t, file.GetContent(), "internal/testdata/simple/gen/genconnect/simple.connect.go")
 		}
