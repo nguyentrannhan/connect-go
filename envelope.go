@@ -205,7 +205,7 @@ func (w *envelopeWriter) marshalAppend(message any, codec marshalAppender) *Erro
 
 func (w *envelopeWriter) marshal(message any) *Error {
 	// Codec doesn't support MarshalAppend; let Marshal allocate a []byte.
-	raw, err := w.codec.Marshal(message)
+	raw, err := w.codec.Marshal(w.ctx, message)
 	if err != nil {
 		return errorf(CodeInternal, "marshal message: %w", err)
 	}
@@ -308,7 +308,7 @@ func (r *envelopeReader) Unmarshal(message any) *Error {
 		return errSpecialEnvelope
 	}
 
-	if err := r.codec.Unmarshal(data.Bytes(), message); err != nil {
+	if err := r.codec.Unmarshal(r.ctx, data.Bytes(), message); err != nil {
 		return errorf(CodeInvalidArgument, "unmarshal message: %w", err)
 	}
 	return nil

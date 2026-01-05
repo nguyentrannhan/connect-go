@@ -16,6 +16,7 @@ package connect
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -45,12 +46,12 @@ type Codec interface {
 	//
 	// Marshal may expect a specific type of message, and will error if this type
 	// is not given.
-	Marshal(any) ([]byte, error)
+	Marshal(context.Context, any) ([]byte, error)
 	// Unmarshal unmarshals the given message.
 	//
 	// Unmarshal may expect a specific type of message, and will error if this
 	// type is not given.
-	Unmarshal([]byte, any) error
+	Unmarshal(context.Context, []byte, any) error
 }
 
 // marshalAppender is an extension to Codec for appending to a byte slice.
@@ -97,7 +98,7 @@ var _ Codec = (*protoBinaryCodec)(nil)
 
 func (c *protoBinaryCodec) Name() string { return codecNameProto }
 
-func (c *protoBinaryCodec) Marshal(message any) ([]byte, error) {
+func (c *protoBinaryCodec) Marshal(ctx context.Context, message any) ([]byte, error) {
 	protoMessage, ok := message.(proto.Message)
 	if !ok {
 		return nil, errNotProto(message)
@@ -113,7 +114,7 @@ func (c *protoBinaryCodec) MarshalAppend(dst []byte, message any) ([]byte, error
 	return proto.MarshalOptions{}.MarshalAppend(dst, protoMessage)
 }
 
-func (c *protoBinaryCodec) Unmarshal(data []byte, message any) error {
+func (c *protoBinaryCodec) Unmarshal(ctx context.Context, data []byte, message any) error {
 	protoMessage, ok := message.(proto.Message)
 	if !ok {
 		return errNotProto(message)
@@ -151,7 +152,7 @@ var _ Codec = (*protoJSONCodec)(nil)
 
 func (c *protoJSONCodec) Name() string { return c.name }
 
-func (c *protoJSONCodec) Marshal(message any) ([]byte, error) {
+func (c *protoJSONCodec) Marshal(ctx context.Context, message any) ([]byte, error) {
 	protoMessage, ok := message.(proto.Message)
 	if !ok {
 		return nil, errNotProto(message)
@@ -167,7 +168,7 @@ func (c *protoJSONCodec) MarshalAppend(dst []byte, message any) ([]byte, error) 
 	return protojson.MarshalOptions{}.MarshalAppend(dst, protoMessage)
 }
 
-func (c *protoJSONCodec) Unmarshal(binary []byte, message any) error {
+func (c *protoJSONCodec) Unmarshal(ctx context.Context, binary []byte, message any) error {
 	protoMessage, ok := message.(proto.Message)
 	if !ok {
 		return errNotProto(message)
@@ -191,7 +192,7 @@ func (c *protoJSONCodec) MarshalStable(message any) ([]byte, error) {
 	// output inconsistent whitespace for some reason, therefore it is
 	// suggested to use a formatter to ensure consistent formatting.
 	// https://github.com/golang/protobuf/issues/1373
-	messageJSON, err := c.Marshal(message)
+	messageJSON, err := c.Marshal(context.Background(), message)
 	if err != nil {
 		return nil, err
 	}

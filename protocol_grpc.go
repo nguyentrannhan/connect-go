@@ -722,7 +722,7 @@ func grpcErrorForTrailer(protobuf Codec, trailer http.Header) *Error {
 			return errorf(CodeInternal, "server returned invalid grpc-status-details-bin trailer: %w", err)
 		}
 		var status statusv1.Status
-		if err := protobuf.Unmarshal(detailsBinary, &status); err != nil {
+		if err := protobuf.Unmarshal(context.Background(), detailsBinary, &status); err != nil {
 			return errorf(CodeInternal, "server returned invalid protobuf for error details: %w", err)
 		}
 		for _, d := range status.GetDetails() {
@@ -854,7 +854,7 @@ func grpcErrorToTrailer(trailer http.Header, protobuf Codec, err error) {
 	)
 	if len(status.Details) > 0 {
 		var binErr error
-		bin, binErr = protobuf.Marshal(status)
+		bin, binErr = protobuf.Marshal(context.Background(), status)
 		if binErr != nil {
 			code = int32(CodeInternal)
 			message = fmt.Sprintf("marshal protobuf status: %v", binErr)

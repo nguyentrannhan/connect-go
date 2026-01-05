@@ -41,11 +41,11 @@ func TestCodecRoundTrips(t *testing.T) {
 		return func(text string, number int64) bool {
 			got := pingv1.PingRequest{}
 			want := pingv1.PingRequest{Text: text, Number: number}
-			data, err := codec.Marshal(&want)
+			data, err := codec.Marshal(t.Context(), &want)
 			if err != nil {
 				t.Fatal(err)
 			}
-			err = codec.Unmarshal(data, &got)
+			err = codec.Unmarshal(t.Context(), data, &got)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -73,7 +73,7 @@ func TestAppendCodec(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			err = codec.Unmarshal(data, &got)
+			err = codec.Unmarshal(t.Context(), data, &got)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -102,7 +102,7 @@ func TestStableCodec(t *testing.T) {
 			}
 			for range 10 {
 				roundtripProto := &structpb.Struct{}
-				err = codec.Unmarshal(want, roundtripProto)
+				err = codec.Unmarshal(t.Context(), want, roundtripProto)
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -132,19 +132,19 @@ func TestJSONCodec(t *testing.T) {
 
 	t.Run("success", func(t *testing.T) {
 		t.Parallel()
-		err := codec.Unmarshal([]byte("{}"), &emptypb.Empty{})
+		err := codec.Unmarshal(t.Context(), []byte("{}"), &emptypb.Empty{})
 		assert.Nil(t, err)
 	})
 
 	t.Run("unknown fields", func(t *testing.T) {
 		t.Parallel()
-		err := codec.Unmarshal([]byte(`{"foo": "bar"}`), &emptypb.Empty{})
+		err := codec.Unmarshal(t.Context(), []byte(`{"foo": "bar"}`), &emptypb.Empty{})
 		assert.Nil(t, err)
 	})
 
 	t.Run("empty string", func(t *testing.T) {
 		t.Parallel()
-		err := codec.Unmarshal([]byte{}, &emptypb.Empty{})
+		err := codec.Unmarshal(t.Context(), []byte{}, &emptypb.Empty{})
 		assert.NotNil(t, err)
 		assert.True(
 			t,

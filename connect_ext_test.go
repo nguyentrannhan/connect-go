@@ -3394,11 +3394,11 @@ func (c failCodec) Name() string {
 	return "proto"
 }
 
-func (c failCodec) Marshal(message any) ([]byte, error) {
+func (c failCodec) Marshal(ctx context.Context, message any) ([]byte, error) {
 	return nil, errors.New("boom")
 }
 
-func (c failCodec) Unmarshal(data []byte, message any) error {
+func (c failCodec) Unmarshal(ctx context.Context, data []byte, message any) error {
 	protoMessage, ok := message.(proto.Message)
 	if !ok {
 		return fmt.Errorf("not protobuf: %T", message)

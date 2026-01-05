@@ -545,7 +545,7 @@ func (cc *connectUnaryClientConn) validateResponse(response *http.Response) *Err
 			bufferPool:      cc.bufferPool,
 		}
 		var wireErr connectWireError
-		if err := unmarshaler.UnmarshalFunc(&wireErr, json.Unmarshal); err != nil {
+		if err := unmarshaler.UnmarshalFunc(&wireErr, wrapperJsonUnmarshall); err != nil {
 			return NewError(
 				httpToCode(response.StatusCode),
 				errors.New(response.Status),
@@ -564,6 +564,10 @@ func (cc *connectUnaryClientConn) validateResponse(response *http.Response) *Err
 		return serverErr
 	}
 	return nil
+}
+
+func wrapperJsonUnmarshall(ctx context.Context, data []byte, v any) error {
+	return json.Unmarshal(data, v)
 }
 
 type connectStreamingClientConn struct {
@@ -936,7 +940,7 @@ func (m *connectUnaryMarshaler) Marshal(message any) *Error {
 		data, err = appender.MarshalAppend(m.bufferPool.Get().Bytes(), message)
 	} else {
 		// Can't avoid allocating the slice, but we'll reuse it.
-		data, err = m.codec.Marshal(message)
+		data, err = m.codec.Marshal(m.ctx, message)
 	}
 	if err != nil {
 		return errorf(CodeInternal, "marshal message: %w", err)
@@ -1096,7 +1100,7 @@ func (u *connectUnaryUnmarshaler) Unmarshal(message any) *Error {
 	return u.UnmarshalFunc(message, u.codec.Unmarshal)
 }
 
-func (u *connectUnaryUnmarshaler) UnmarshalFunc(message any, unmarshal func([]byte, any) error) *Error {
+func (u *connectUnaryUnmarshaler) UnmarshalFunc(message any, unmarshal func(context.Context, []byte, any) error) *Error {
 	if u.alreadyRead {
 		return NewError(CodeInternal, io.EOF)
 	}
@@ -1133,7 +1137,7 @@ func (u *connectUnaryUnmarshaler) UnmarshalFunc(message any, unmarshal func([]by
 		}
 		data = decompressed
 	}
-	if err := unmarshal(data.Bytes(), message); err != nil {
+	if err := unmarshal(u.ctx, data.Bytes(), message); err != nil {
 		return errorf(CodeInvalidArgument, "unmarshal message: %w", err)
 	}
 	return nil
@@ -1160,7 +1164,7 @@ func (d *connectWireDetail) MarshalJSON() ([]byte, error) {
 	msg, err := d.getInner()
 	if err == nil {
 		var codec protoJSONCodec
-		debug, err := codec.Marshal(msg)
+		debug, err := codec.Marshal(context.Background(), msg)
 		if err == nil {
 			wire.Debug = debug
 		}
