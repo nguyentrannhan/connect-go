@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/nguyentrannhan/connect-go/internal/assert"
-	pingv1 "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1"
+	"connectrpc.com/connect/internal/assert"
+	pingv1 "connectrpc.com/connect/internal/gen/connect/ping/v1"
 )
 
 func TestClientStreamIterator(t *testing.T) {

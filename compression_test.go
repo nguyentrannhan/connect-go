@@ -18,8 +18,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/nguyentrannhan/connect-go/internal/assert"
-	"github.com/nguyentrannhan/connect-go/internal/memhttp/memhttptest"
+	"connectrpc.com/connect/internal/assert"
+	"connectrpc.com/connect/internal/memhttp/memhttptest"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 

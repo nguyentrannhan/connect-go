@@ -24,7 +24,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/nguyentrannhan/connect-go/internal/assert"
+	"connectrpc.com/connect/internal/assert"
 )
 
 // TestHTTPCallGetBody tests that the client is able to retry requests on

@@ -20,7 +20,7 @@ import (
 	"log"
 	"net/http"
 
-	connect "github.com/nguyentrannhan/connect-go"
+	connect "connectrpc.com/connect"
 )
 
 // NewHelloHandler is an example HTTP handler. In a real application, it might

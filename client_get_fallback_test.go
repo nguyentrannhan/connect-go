@@ -20,9 +20,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/nguyentrannhan/connect-go/internal/assert"
-	pingv1 "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1"
-	"github.com/nguyentrannhan/connect-go/internal/memhttp/memhttptest"
+	"connectrpc.com/connect/internal/assert"
+	pingv1 "connectrpc.com/connect/internal/gen/connect/ping/v1"
+	"connectrpc.com/connect/internal/memhttp/memhttptest"
 )
 
 func TestClientUnaryGetFallback(t *testing.T) {

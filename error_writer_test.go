@@ -19,7 +19,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/nguyentrannhan/connect-go/internal/assert"
+	"connectrpc.com/connect/internal/assert"
 )
 
 func TestErrorWriter(t *testing.T) {

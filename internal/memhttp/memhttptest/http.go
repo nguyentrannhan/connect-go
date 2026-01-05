@@ -19,7 +19,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/nguyentrannhan/connect-go/internal/memhttp"
+	"connectrpc.com/connect/internal/memhttp"
 )
 
 // NewServer constructs a [memhttp.Server] with defaults suitable for tests:

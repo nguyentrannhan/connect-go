@@ -1,4 +1,4 @@
-module github.com/nguyentrannhan/connect-go
+module connectrpc.com/connect
 
 go 1.24.0
 

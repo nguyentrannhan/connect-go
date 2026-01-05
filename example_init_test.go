@@ -17,8 +17,8 @@ package connect_test
 import (
 	"net/http"
 
-	"github.com/nguyentrannhan/connect-go/internal/gen/simple/connect/ping/v1/pingv1connect"
-	"github.com/nguyentrannhan/connect-go/internal/memhttp"
+	"connectrpc.com/connect/internal/gen/simple/connect/ping/v1/pingv1connect"
+	"connectrpc.com/connect/internal/memhttp"
 )
 
 var examplePingServer *memhttp.Server

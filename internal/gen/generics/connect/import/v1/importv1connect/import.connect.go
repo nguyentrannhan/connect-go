@@ -19,10 +19,9 @@
 package importv1connect
 
 import (
+	connect "connectrpc.com/connect"
+	_ "connectrpc.com/connect/internal/gen/connect/import/v1"
 	http "net/http"
-
-	connect "github.com/nguyentrannhan/connect-go"
-	_ "github.com/nguyentrannhan/connect-go/internal/gen/connect/import/v1"
 )
 
 // This is a compile-time assertion to ensure that this generated file and the connect package are

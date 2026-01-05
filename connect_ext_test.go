@@ -36,14 +36,14 @@ import (
 	"testing"
 	"time"
 
-	connect "github.com/nguyentrannhan/connect-go"
-	"github.com/nguyentrannhan/connect-go/internal/assert"
-	pingv1 "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1"
-	"github.com/nguyentrannhan/connect-go/internal/gen/generics/connect/import/v1/importv1connect"
-	"github.com/nguyentrannhan/connect-go/internal/gen/generics/connect/ping/v1/pingv1connect"
-	pingv1connectsimple "github.com/nguyentrannhan/connect-go/internal/gen/simple/connect/ping/v1/pingv1connect"
-	"github.com/nguyentrannhan/connect-go/internal/memhttp"
-	"github.com/nguyentrannhan/connect-go/internal/memhttp/memhttptest"
+	connect "connectrpc.com/connect"
+	"connectrpc.com/connect/internal/assert"
+	pingv1 "connectrpc.com/connect/internal/gen/connect/ping/v1"
+	"connectrpc.com/connect/internal/gen/generics/connect/import/v1/importv1connect"
+	"connectrpc.com/connect/internal/gen/generics/connect/ping/v1/pingv1connect"
+	pingv1connectsimple "connectrpc.com/connect/internal/gen/simple/connect/ping/v1/pingv1connect"
+	"connectrpc.com/connect/internal/memhttp"
+	"connectrpc.com/connect/internal/memhttp/memhttptest"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/reflect/protoregistry"
 	"google.golang.org/protobuf/types/known/wrapperspb"
@@ -1360,7 +1360,7 @@ func TestCustomCompression(t *testing.T) {
 }
 
 func TestClientWithoutGzipSupport(t *testing.T) {
-	// See https://github.com/nguyentrannhan/connect-go/pull/349 for why we want to
+	// See https://connectrpc.com/connect/pull/349 for why we want to
 	// support this. TL;DR is that Microsoft's dapr sidecar can't handle
 	// asymmetric compression.
 	t.Parallel()

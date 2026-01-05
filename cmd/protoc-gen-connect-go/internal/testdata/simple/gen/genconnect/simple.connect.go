@@ -19,13 +19,12 @@
 package genconnect
 
 import (
+	connect "connectrpc.com/connect"
+	gen "connectrpc.com/connect/cmd/protoc-gen-connect-go/internal/testdata/simple/gen"
 	context "context"
 	errors "errors"
 	http "net/http"
 	strings "strings"
-
-	connect "github.com/nguyentrannhan/connect-go"
-	gen "github.com/nguyentrannhan/connect-go/cmd/protoc-gen-connect-go/internal/testdata/simple/gen"
 )
 
 // This is a compile-time assertion to ensure that this generated file and the connect package are

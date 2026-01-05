@@ -1,9 +1,9 @@
-module github.com/nguyentrannhan/connect-go/internal/example
+module connectrpc.com/connect/internal/example
 
 go 1.24.0
 
 require (
-	github.com/nguyentrannhan/connect-go v1.19.0
+	connectrpc.com/connect v1.19.0
 	connectrpc.com/validate v0.6.0
 )
 

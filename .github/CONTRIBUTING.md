@@ -40,7 +40,7 @@ make
 Start by creating a new branch for your changes:
 
 ```
-cd $GOPATH/src/github.com/nguyentrannhan/connect-go
+cd $GOPATH/src/connectrpc.com/connect
 git checkout main
 git fetch upstream
 git rebase upstream/main

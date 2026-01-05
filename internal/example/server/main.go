@@ -19,10 +19,10 @@ import (
 	"log"
 	"net/http"
 
+	"connectrpc.com/connect"
+	pingv1 "connectrpc.com/connect/internal/gen/connect/ping/v1"
+	"connectrpc.com/connect/internal/gen/simple/connect/ping/v1/pingv1connect"
 	"connectrpc.com/validate"
-	"github.com/nguyentrannhan/connect-go"
-	pingv1 "github.com/nguyentrannhan/connect-go/internal/gen/connect/ping/v1"
-	"github.com/nguyentrannhan/connect-go/internal/gen/simple/connect/ping/v1/pingv1connect"
 )
 
 type PingServer struct {

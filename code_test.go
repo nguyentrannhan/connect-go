@@ -19,7 +19,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/nguyentrannhan/connect-go/internal/assert"
+	"connectrpc.com/connect/internal/assert"
 )
 
 func TestCode(t *testing.T) {
