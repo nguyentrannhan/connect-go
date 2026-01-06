@@ -224,6 +224,15 @@ func (w *envelopeWriter) write(env *envelope) *Error {
 		}
 		return errorf(CodeUnknown, "write envelope: %w", err)
 	}
+
+	if container, ok := GetHolder(w.ctx); ok {
+		if container.Pb != nil {
+			container.Pb.Release()
+			container.Pb = nil
+		}
+		containerPool.Put(container)
+	}
+
 	return nil
 }
 

@@ -26,6 +26,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	statusv1 "connectrpc.com/connect/internal/gen/connectext/grpc/status/v1"
@@ -143,11 +144,36 @@ func (g *grpcHandler) CanHandlePayload(_ *http.Request, contentType string) bool
 	return ok
 }
 
+type HolderContainer struct {
+	Pb interface {
+		Release()
+	}
+}
+
+var containerPool = sync.Pool{
+	New: func() any {
+		return &HolderContainer{}
+	},
+}
+
+type holderKey struct{}
+
+var holderKeyPool = holderKey{}
+
+func GetHolder(ctx context.Context) (*HolderContainer, bool) {
+	h, ok := ctx.Value(holderKeyPool).(*HolderContainer)
+	return h, ok
+}
+
 func (g *grpcHandler) NewConn(
 	responseWriter http.ResponseWriter,
 	request *http.Request,
 ) (handlerConnCloser, bool) {
-	ctx := request.Context()
+	container := containerPool.Get().(*HolderContainer)
+	container.Pb = nil
+
+	ctx := context.WithValue(request.Context(), holderKeyPool, container)
+
 	// We need to parse metadata before entering the interceptor stack; we'll
 	// send the error to the client later on.
 	requestCompression, responseCompression, failed := negotiateCompression(
