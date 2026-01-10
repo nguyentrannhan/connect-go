@@ -150,7 +150,11 @@ func (h *connectHandler) NewConn(
 	responseWriter http.ResponseWriter,
 	request *http.Request,
 ) (handlerConnCloser, bool) {
-	ctx := request.Context()
+	container := containerPool.Get().(*HolderContainer)
+	container.Pb = nil
+
+	ctx := context.WithValue(request.Context(), holderKeyPool, container)
+
 	query := request.URL.Query()
 	// We need to parse metadata before entering the interceptor stack; we'll
 	// send the error to the client later on.
@@ -975,6 +979,15 @@ func (m *connectUnaryMarshaler) write(data []byte) *Error {
 		}
 		return errorf(CodeUnknown, "write message: %w", err)
 	}
+
+	if container, ok := GetHolder(m.ctx); ok {
+		if container.Pb != nil {
+			container.Pb.Release()
+			container.Pb = nil
+		}
+		containerPool.Put(container)
+	}
+
 	return nil
 }
 
